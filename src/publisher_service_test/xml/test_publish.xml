@@ -1,0 +1,19 @@
+<TestSuite xmlns="https://www.aist.go.jp/rospit" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Publish message">
+  <TestCase name="PublishMessage">
+    <Run>
+      <Step xsi:type="ServiceCall" service="/publish_msg" type="publisher_service_msgs/srv/PublishService">
+        <Message>
+          <Parameter name="msg">
+            <Value xsi:type="StaticValue" value="test" type="std_msgs/String" />
+          </Parameter>
+        </Message>
+      </Step>
+    </Run>
+    <Postconditions>
+      <Postcondition name="'Test' published on '/test_topic'">
+        <Condition xsi:type="StringEquals" value="test" />
+        <Evaluator xsi:type="MessagesEvaluator" topic="/test_topic" occurrence="once-and-only" field="data" type="std_msgs/String" />
+      </Postcondition>
+    </Postconditions>
+  </TestCase>
+</TestSuite>
